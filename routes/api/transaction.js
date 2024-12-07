@@ -2,23 +2,35 @@ const express = require('express')
 
 const router = express.Router()
 
-router.get('/', async (req, res, next) => {
+router.post('/income', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
 
-router.get('/:contactId', async (req, res, next) => {
+router.get('/income', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/expense', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
 
-router.delete('/:contactId', async (req, res, next) => {
+router.get('/expense', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
 
-router.put('/:contactId', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
+  res.json({ message: 'template message' })
+})
+
+router.get('/income-categories', async (req, res, next) => {
+  res.json({ message: 'template message' })
+})
+
+router.get('/expense-categories', async (req, res, next) => {
+  res.json({ message: 'template message' })
+})
+
+router.get('/period-data', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
 
