@@ -1,12 +1,11 @@
-import express from 'express'
-import updateBalance from '../../controllers/users/updateBalance.js'
-import getUserInfo from '../../controllers/users/getUserInfo.js'
+import express from 'express';
+import updateBalance from '../../controllers/users/updateBalance.js';
+import getUserInfo from '../../controllers/users/getUserInfo.js';
+import authenticateToken from '../../middleware/authenticateToken.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.patch('/balance', updateBalance)
+router.patch('/balance', authenticateToken, updateBalance);
+router.get('/', authenticateToken, getUserInfo);
 
-router.get('/', getUserInfo)
-
-
-export default router
+export default router;
