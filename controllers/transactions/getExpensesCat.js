@@ -1,6 +1,6 @@
 const getExpenseCat = async (req, res, next) => {
-    res.json({ message: 'template message' })
+    res.json({ message: 'get expense category' })
     }
 
-module.exports = getExpenseCat
+export default getExpenseCat
       

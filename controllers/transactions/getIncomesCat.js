@@ -1,5 +1,5 @@
 const getIncomesCat = async (req, res, next) => {
-  res.json({ message: 'template message' })
+  res.json({ message: 'get income category' })
 }
 
-module.exports = getIncomesCat
+export default getIncomesCat

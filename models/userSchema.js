@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Transaction = require('./transactionSchema');
-const bcrypt = require('bcrypt')
+import mongoose from 'mongoose';
+import Transaction from './transactionSchema';
+import bcrypt from 'bcrypt'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema(
@@ -48,4 +48,4 @@ userSchema.methods.validatePassword = async function (password) {
 
 const User = mongoose.model('user', userSchema, 'users')
 
-module.exports = User;
+export default User;

@@ -1,5 +1,5 @@
 const updateBalance = async (req, res, next) => {
-  res.json({ message: 'template message' })
+  res.json({ message: 'update balance' })
 }
 
-module.exports = updateBalance
+export default updateBalance

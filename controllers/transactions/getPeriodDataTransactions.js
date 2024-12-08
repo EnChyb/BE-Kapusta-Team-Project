@@ -1,5 +1,5 @@
 const getPeriodDataTransactions = async (req, res, next) => {
-  res.json({ message: 'template message' })
+  res.json({ message: 'get period data transaction' })
 }
 
-module.exports = getPeriodDataTransactions
+export default getPeriodDataTransactions

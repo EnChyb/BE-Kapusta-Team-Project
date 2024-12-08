@@ -1,5 +1,5 @@
 const getExpense = async (req, res, next) => {
-  res.json({ message: 'template message' })
+  res.json({ message: 'get expense' })
 }
 
-module.exports = getExpense
+export default getExpense

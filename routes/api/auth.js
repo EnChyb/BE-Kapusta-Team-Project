@@ -1,10 +1,10 @@
-const express = require('express')
+import express from'express'
 
-const registerUser = require('../../controllers/auth/registerUser')
-const loginUser = require('../../controllers/auth/loginUser')
-const logoutUser = require('../../controllers/auth/logoutUser')
-const refreshUserToken = require('../../controllers/auth/refreshUserToken')
-const googleAuthUser = require('../../controllers/auth/googleAuthUser')
+import registerUser from '../../controllers/auth/registerUser.js'
+import loginUser from '../../controllers/auth/loginUser.js'
+import logoutUser from '../../controllers/auth/logoutUser.js'
+import refreshUserToken from'../../controllers/auth/refreshUserToken.js'
+import googleAuthUser from '../../controllers/auth/googleAuthUser.js'
 
 const router = express.Router()
 
@@ -14,4 +14,4 @@ router.post('/logout', logoutUser)
 router.post('/refresh', refreshUserToken)
 router.get('/google', googleAuthUser)
 
-module.exports = router
+export default router

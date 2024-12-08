@@ -1,7 +1,5 @@
-const User = require('../models/userSchema')
+import User from '../models/userSchema';
 
-// check if it works
-// Update User - eq. token, balance
 const updateUser = (_id, key) => {
   return User.findOneAndUpdate(
     { _id: _id },
@@ -15,4 +13,4 @@ const updateUser = (_id, key) => {
   );
 }
 
-module.exports = updateUser
+export default updateUser
