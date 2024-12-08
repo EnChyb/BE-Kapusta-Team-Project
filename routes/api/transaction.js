@@ -1,12 +1,13 @@
-const express = require('express')
-const addIncome = require('../../controllers/transactions/addIncome')
-const getIncome = require('../../controllers/transactions/getIncome')
-const addExpense = require('../../controllers/transactions/addExpense')
-const getExpense = require('../../controllers/transactions/getExpense')
-const deleteTransaction = require('../../controllers/transactions/deleteTransaction')
-const getIncomesCat = require('../../controllers/transactions/getIncomesCat')
-const getExpenseCat = require('../../controllers/transactions/getExpensesCat')
-const getPeriodDataTransactions = require('../../controllers/transactions/getPeriodDataTransactions')
+import express from 'express'
+import addIncome from '../../controllers/transactions/addIncome.js'
+import getIncome from '../../controllers/transactions/getIncome.js'
+import addExpense from '../../controllers/transactions/addExpense.js'
+import getExpense from '../../controllers/transactions/getExpense.js'
+import deleteTransaction from '../../controllers/transactions/deleteTransaction.js'
+import getIncomesCat from '../../controllers/transactions/getIncomesCat.js'
+import getExpenseCat from '../../controllers/transactions/getExpensesCat.js'
+import getPeriodDataTransactions from '../../controllers/transactions/getPeriodDataTransactions.js'
+
 
 const router = express.Router()
 
@@ -19,4 +20,4 @@ router.get('/income-categories', getIncomesCat)
 router.get('/expense-categories', getExpenseCat)
 router.get('/period-data', getPeriodDataTransactions)
 
-module.exports = router
+export default router

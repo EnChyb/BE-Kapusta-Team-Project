@@ -1,5 +1,5 @@
 const getUserInfo = async (req, res, next) => {
-  res.json({ message: 'template message' })
+  res.json({ message: 'get user info' })
 }
 
-module.exports = getUserInfo
+export default getUserInfo

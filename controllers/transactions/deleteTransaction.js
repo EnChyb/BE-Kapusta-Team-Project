@@ -1,5 +1,5 @@
 const deleteTransaction = async (req, res, next) => {
-  res.json({ message: 'template message' })
+  res.json({ message: 'delete transaction' })
 }
 
-module.exports = deleteTransaction
+export default deleteTransaction

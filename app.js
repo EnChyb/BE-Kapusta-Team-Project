@@ -1,19 +1,19 @@
-const express = require('express')
-const logger = require('morgan')
-const cors = require('cors')
+import express from "express"
+import morgan from "morgan";
+import cors from "cors"
 
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./utils/swaggerConfig');
+import swaggerUi from 'swagger-ui-express'
+import swaggerSpec from "./utils/swaggerConfig.js";
 
-const authRouter = require('./routes/api/auth')
-const transactionRouter = require('./routes/api/transaction')
-const userRouter = require('./routes/api/user')
+import authRouter from './routes/api/auth.js'
+import transactionRouter from './routes/api/transaction.js'
+import userRouter from './routes/api/user.js'
 
 const app = express()
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
-app.use(logger(formatsLogger))
+app.use(morgan(formatsLogger))
 app.use(cors())
 app.use(express.json())
 
@@ -35,4 +35,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message })
 })
 
-module.exports = app
+export default app

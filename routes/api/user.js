@@ -1,6 +1,6 @@
-const express = require('express')
-const updateBalance = require('../../controllers/users/updateBalance')
-const getUserInfo = require('../../controllers/users/getUserInfo')
+import express from 'express'
+import updateBalance from '../../controllers/users/updateBalance.js'
+import getUserInfo from '../../controllers/users/getUserInfo.js'
 
 const router = express.Router()
 
@@ -9,4 +9,4 @@ router.patch('/balance', updateBalance)
 router.get('/', getUserInfo)
 
 
-module.exports = router
+export default router

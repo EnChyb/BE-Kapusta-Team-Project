@@ -1,4 +1,4 @@
-const User = require('../models/userSchema')
+import User from '../models/userSchema'
 
 // Find user by key - eq. _id, email (_id is definied by MongoDB)
 const fetchUser = (key) => {
@@ -6,4 +6,4 @@ const fetchUser = (key) => {
 
 }
 
-module.exports = fetchUser
+export default fetchUser
