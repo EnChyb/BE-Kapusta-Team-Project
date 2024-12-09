@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Transaction from './transactionSchema';
+// import Transaction from './transactionSchema';
 import bcrypt from 'bcrypt'
 const Schema = mongoose.Schema
 
