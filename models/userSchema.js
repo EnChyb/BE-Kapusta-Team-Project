@@ -8,34 +8,37 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true // minLength: 3, maxLength:254
+      unique: true,
     },
     password: {
       type: String,
-      required: [true, 'Password is required'] // minLength: 8, maxLength:100
+      required: [true, 'Password is required'],
     },
     accessToken: {
       type: String,
       default: null,
     },
     refreshToken: {
-      // needed for refresh token
       type: String,
     },
     sid: {
-      // needed for refresh token
       type: String,
     },
     balance: {
       type: Number,
-      default: 0
+      default: 0,
     },
-    transactions: [Transaction] // schema from transactionSchema.js
-  }, {
+    transactions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'transaction', 
+      },
+    ],
+  },
+  {
     versionKey: false,
-    // timestamps: true,
   }
-)
+);
 
 userSchema.methods.setPassword = async function (password)  {
   this.password = await bcrypt.hash(password, 10)

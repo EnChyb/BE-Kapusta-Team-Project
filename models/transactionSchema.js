@@ -8,23 +8,42 @@ const transactionSchema = new Schema(
       required: [true, 'Set description of transaction'],
     },
     category: {
-        type: String,
-        enum: ['Products', 'Alcohol', 'Entertainment', 'Health', 'Transport', 'Housing', 'Technique', 'Communal, Communication', 'Sports, Hobbies', 'Education', 'Other', 'Income'],
-        required: [true, 'Set category of transaction']
+      type: String,
+      enum: [
+        'Products',
+        'Alcohol',
+        'Entertainment',
+        'Health',
+        'Transport',
+        'Housing',
+        'Technique',
+        'Communal, Communication',
+        'Sports, Hobbies',
+        'Education',
+        'Other',
+        'Income',
+      ],
+      required: [true, 'Set category of transaction'],
     },
     amount: {
-        type: Number,
-        required: [true, 'Set amount of transaction']
+      type: Number,
+      required: [true, 'Set amount of transaction'],
     },
     date: {
       type: Date,
-      default: Date.now
-        }
-  }, {
+      default: Date.now,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user', 
+      required: true,
+    },
+  },
+  {
     versionKey: false,
-    // timestamps: true,
   }
-)
+);
+
 
 const Transaction = mongoose.model('transaction', transactionSchema, 'transactions')
 
