@@ -16,7 +16,19 @@ const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(morgan(formatsLogger));
-app.use(cors());
+
+// CORS configuration - only development and production of frontend can fetch data
+const corsOptions = {
+  development: {
+    origin: 'http://localhost:3000'
+  }, 
+  production: {
+      origin: 'https://fe-kapusta-team-project.vercel.app/'
+    }
+};
+const environment = process.env.NODE_ENV || 'development'; // check NODE_ENV in scripts
+
+app.use(cors(corsOptions[environment]));
 app.use(express.json());
 
 // API DOCUMENTATION
