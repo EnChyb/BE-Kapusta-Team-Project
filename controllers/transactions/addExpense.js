@@ -44,13 +44,20 @@ const addExpense = async (req, res) => {
 
     const savedExpense = await newExpense.save();
 
-    await User.findByIdAndUpdate(userId, {
-      $push: { transactions: savedExpense._id },
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $push: { transactions: savedExpense._id },
+        $inc: { allExpense: amount },
+      },
+      { new: true } 
+    );
 
-    return res
-      .status(StatusCodes.CREATED)
-      .json({ message: 'Expense added successfully', expense: savedExpense });
+    return res.status(StatusCodes.CREATED).json({
+      message: 'Expense added successfully',
+      expense: savedExpense,
+      user: updatedUser, 
+    });
   } catch (error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
