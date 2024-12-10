@@ -28,6 +28,14 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+    allIncome: {
+      type: Number,
+      default: 0, 
+    },
+    allExpense: {
+      type: Number,
+      default: 0, 
+    },
     transactions: [
       {
         type: mongoose.Schema.Types.ObjectId,
