@@ -1,5 +1,5 @@
+import fetchUser from "../../services/findUser.js";
 import jwt from "jsonwebtoken";
-import User from "../../models/userSchema.js";
 import { StatusCodes } from "http-status-codes";
 
 const refreshUserToken = async (req, res, next) => {
@@ -21,8 +21,7 @@ const refreshUserToken = async (req, res, next) => {
         .json({ message: "Invalid refresh token" });
     }
 
-    const user = await User.findById(decoded.userId);
-
+    const user = await fetchUser({ _id: decoded.userId });
     if (!user || user.refreshToken !== refreshToken) {
       return res
         .status(StatusCodes.UNAUTHORIZED)

@@ -1,4 +1,5 @@
-import User from "../../models/userSchema.js";
+import fetchUser from "../../services/findUser.js";
+import updateUser from "../../services/updateUser.js";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
@@ -6,8 +7,7 @@ const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-
+    const user = await fetchUser({ email });
     if (!user || !(await user.validatePassword(password))) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
@@ -26,8 +26,7 @@ const loginUser = async (req, res, next) => {
       { expiresIn: "7d" }
     );
 
-    user.refreshToken = refreshToken;
-    await user.save();
+    await updateUser(user._id, { refreshToken });
 
     return res.status(StatusCodes.OK).json({ accessToken, refreshToken });
   } catch (err) {

@@ -1,20 +1,19 @@
-import User from "../../models/userSchema.js";
+import fetchUser from "../../services/findUser.js";
+import updateUser from "../../services/updateUser.js";
 import { StatusCodes } from "http-status-codes";
 
 const logoutUser = async (req, res, next) => {
   try {
     const { userId } = req.user;
 
-    const user = await User.findById(userId);
-
+    const user = await fetchUser({ _id: userId });
     if (!user) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "User not found" });
     }
 
-    user.refreshToken = null;
-    await user.save();
+    await updateUser(user._id, { refreshToken: null });
 
     return res
       .status(StatusCodes.OK)

@@ -1,3 +1,4 @@
+import fetchUser from "../../services/findUser.js";
 import User from "../../models/userSchema.js";
 import { StatusCodes } from "http-status-codes";
 
@@ -5,8 +6,7 @@ const registerUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const existingUser = await User.findOne({ email });
-
+    const existingUser = await fetchUser({ email });
     if (existingUser) {
       return res
         .status(StatusCodes.CONFLICT)
