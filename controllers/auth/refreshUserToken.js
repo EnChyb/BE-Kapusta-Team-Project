@@ -1,4 +1,5 @@
 import fetchUser from "../../services/findUser.js";
+import updateUser from "../../services/updateUser.js";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
@@ -33,8 +34,19 @@ const refreshUserToken = async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+    console.log("Generated Access Token:", accessToken);
+    const newRefreshToken = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: "7d" }
+    );
+    console.log("Generated Refresh Token:", newRefreshToken);
+    await updateUser(user._id, { refreshToken: newRefreshToken });
 
-    return res.status(StatusCodes.OK).json({ accessToken });
+    return res.status(StatusCodes.OK).json({
+      accessToken,
+      refreshToken: newRefreshToken
+    });
   } catch (err) {
     next(err);
   }
