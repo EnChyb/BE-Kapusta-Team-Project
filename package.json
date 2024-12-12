@@ -16,14 +16,10 @@
     "cross-env": "7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.17.1",
-<<<<<<< Updated upstream
-    "jsonwebtoken": "^9.0.0",
-=======
     "http-status-codes": "^2.3.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongo": "^0.1.0",
->>>>>>> Stashed changes
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.3",
     "morgan": "1.10.0",
@@ -33,7 +29,7 @@
   "devDependencies": {
     "eslint": "7.19.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "16.0.3", 
+    "eslint-config-standard": "16.0.3",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "5.2.0",

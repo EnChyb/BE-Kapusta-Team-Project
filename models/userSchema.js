@@ -1,62 +1,61 @@
-import mongoose from 'mongoose';
-import Transaction from './transactionSchema';
-import bcrypt from 'bcrypt'
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
+// import Transaction from './transactionSchema';
+import bcrypt from "bcrypt";
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
     email: {
       type: String,
-      required: [true, 'Email is required'],
-      unique: true,
+      required: [true, "Email is required"],
+      unique: true
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: [true, "Password is required"]
     },
     accessToken: {
       type: String,
-      default: null,
+      default: null
     },
     refreshToken: {
-      type: String,
+      type: String
     },
     sid: {
-      type: String,
+      type: String
     },
     balance: {
       type: Number,
-      default: 0,
+      default: 0
     },
     allIncome: {
       type: Number,
-      default: 0, 
+      default: 0
     },
     allExpense: {
       type: Number,
-      default: 0, 
+      default: 0
     },
     transactions: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'transaction', 
-      },
-    ],
+        ref: "transaction"
+      }
+    ]
   },
   {
-    versionKey: false,
+    versionKey: false
   }
 );
 
-userSchema.methods.setPassword = async function (password)  {
-  this.password = await bcrypt.hash(password, 10)
-
-}
+userSchema.methods.setPassword = async function (password) {
+  this.password = await bcrypt.hash(password, 10);
+};
 
 userSchema.methods.validatePassword = async function (password) {
-  return await bcrypt.compare(password, this.password)
-}
+  return await bcrypt.compare(password, this.password);
+};
 
-const User = mongoose.model('user', userSchema, 'users')
+const User = mongoose.model("user", userSchema, "users");
 
 export default User;
