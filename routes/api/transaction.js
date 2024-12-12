@@ -9,6 +9,7 @@ import deleteTransaction from '../../controllers/transactions/deleteTransaction.
 import getIncomesCat from '../../controllers/transactions/getIncomesCat.js';
 import getExpenseCat from '../../controllers/transactions/getExpensesCat.js';
 import getPeriodDataTransactions from '../../controllers/transactions/getPeriodDataTransactions.js';
+import getUserTransactions from '../../controllers/transactions/getUserTransactions.js';
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.delete('/', authenticateToken, deleteTransaction);
 router.get('/income-categories', authenticateToken, getIncomesCat);
 router.get('/expense-categories', authenticateToken, getExpenseCat);
 router.get('/period-data', authenticateToken, getPeriodDataTransactions);
+router.get('/user-transactions', authenticateToken, getUserTransactions);
 
 export default router;
