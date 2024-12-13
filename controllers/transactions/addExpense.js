@@ -1,5 +1,5 @@
-import findOneAndUpdateTransaction from '../../services/transactions/findOneAndUpdate.js';
-import findUserByIdAndUpdate from '../../services/users/findByIdAndUpdate.js';
+import Transaction from '../../models/transactionSchema.js';
+import User from '../../models/userSchema.js';
 import { StatusCodes } from 'http-status-codes';
 
 const addExpense = async (req, res) => {
@@ -7,51 +7,67 @@ const addExpense = async (req, res) => {
     const { description, category, amount } = req.body;
     const userId = req.user._id;
 
-    if (!description || !category || !amount) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: 'Description, category, and amount are required' });
-    }
+    const validCategories = [
+      'Products',
+      'Alcohol',
+      'Entertainment',
+      'Health',
+      'Transport',
+      'Housing',
+      'Technique',
+      'Communal, Communication',
+      'Sports, Hobbies',
+      'Education',
+      'Other',
+    ];
 
     if (
-      ![
-        'Products',
-        'Alcohol',
-        'Entertainment',
-        'Health',
-        'Transport',
-        'Housing',
-        'Technique',
-        'Communal, Communication',
-        'Sports, Hobbies',
-        'Education',
-        'Other',
-      ].includes(category)
+      !description ||
+      typeof description !== 'string' ||
+      !description.trim()
     ) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: 'Invalid category' });
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Description must be a non-empty string',
+      });
     }
 
-    const newExpense = await findOneAndUpdateTransaction(
-      { _id: null },
-      {
-        description,
-        category,
-        amount,
-        type: 'expense',
-        date: new Date(),
-        userId,
-      },
-      { upsert: true } 
-    );
-    const updatedUser = await findUserByIdAndUpdate(
+    if (!category || !validCategories.includes(category)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Invalid category',
+      });
+    }
+
+    if (!amount || typeof amount !== 'number' || amount <= 0) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Amount must be a number greater than 0',
+      });
+    }
+
+    const currentDate = new Date().toISOString();
+    const newExpense = new Transaction({
+      description,
+      category,
+      amount,
+      type: 'expense',
+      date: currentDate,
+      userId,
+    });
+    await newExpense.save();
+
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
         $push: { transactions: newExpense._id },
         $inc: { allExpense: amount },
-      }
+      },
+      { new: true }
     );
+
+    if (!updatedUser) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: 'User not found' });
+    }
 
     return res.status(StatusCodes.CREATED).json({
       message: 'Expense added successfully',
@@ -59,6 +75,7 @@ const addExpense = async (req, res) => {
       user: updatedUser,
     });
   } catch (error) {
+    console.error('Error adding expense:', error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: 'Error adding expense', error: error.message });

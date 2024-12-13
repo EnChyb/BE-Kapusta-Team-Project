@@ -4,34 +4,57 @@ import { StatusCodes } from 'http-status-codes';
 
 const addIncome = async (req, res) => {
   try {
-    const { description, category, amount } = req.body;
-    const userId = req.user._id;
+    const { userId, description, category, amount, date } = req.body;
 
-    if (!description || !category || !amount) {
-      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Description, category, and amount are required' });
+    if (!userId || !description || !category || !amount || !date) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'User ID, description, category, amount, and date are required',
+      });
     }
 
     if (category !== 'Income') {
-      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid category for income' });
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Invalid category for income',
+      });
     }
+
+    if (typeof amount !== 'number' || amount <= 0) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Amount must be a positive number',
+      });
+    }
+
     const newIncome = new Transaction({
       description,
       category,
       amount,
       type: 'income',
-      date: new Date(),
+      date: new Date(date).toISOString(), 
       userId,
     });
+
     await newIncome.save();
-    await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $inc: { allIncome: amount } },
       { new: true }
     );
 
-    return res.status(StatusCodes.CREATED).json({ message: 'Income added successfully', income: newIncome });
+    if (!updatedUser) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: 'User not found',
+      });
+    }
+
+    return res.status(StatusCodes.CREATED).json({
+      message: 'Income added successfully',
+      income: newIncome,
+    });
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Error adding income', error: error.message });
+    console.error('Error adding income:', error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: 'Error adding income', error: error.message });
   }
 };
 

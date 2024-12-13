@@ -14,7 +14,6 @@ import getUserTransactions from '../../controllers/transactions/getUserTransacti
 const router = express.Router();
 
 router.post('/expense', authenticateToken, addExpense);  
-
 router.post('/income', authenticateToken, addIncome);
 router.get('/income', authenticateToken, getIncome);
 router.get('/expense', authenticateToken, getExpense);
