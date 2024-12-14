@@ -1,13 +1,17 @@
 import jwt from 'jsonwebtoken';
+import { Session } from '../models/session.js';
 
 
-
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
+const authenticateToken = async (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
   if (!token) {
-    return res.status(401).json({ error: 'Access denied. No token provided.' });
+    return res.status(401).json({ message: 'No token provided' });
+  }
+
+ // Sprawdź, czy token znajduje się na liście unieważnionych tokenów
+  const blacklistedToken = await Session.findOne({ token });
+  if (blacklistedToken) {
+    return res.status(401).json({ message: 'Token has been blacklisted' });
   }
 
   try {
