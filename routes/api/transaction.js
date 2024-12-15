@@ -15,7 +15,6 @@ import addTransaction from '../../controllers/transactions/addTransaction.js';
 const router = express.Router();
 
 router.post('/expense', authenticateToken, addExpense);  
-
 router.post('/income', authenticateToken, addIncome);
 router.get('/income', authenticateToken, getIncome);
 router.get('/expense', authenticateToken, getExpense);

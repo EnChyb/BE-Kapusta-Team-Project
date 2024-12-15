@@ -5,7 +5,10 @@ const getIncome = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const incomes = await Transaction.find({ userId, type: 'income' });
+    const incomes = await Transaction.find({
+      userId,
+      type: 'income',
+    }).select('description amount date category _id'); 
 
     if (!incomes || incomes.length === 0) {
       return res
