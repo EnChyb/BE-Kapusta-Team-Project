@@ -18,7 +18,7 @@ router.post('/expense', authenticateToken, addExpense);
 router.post('/income', authenticateToken, addIncome);
 router.get('/income', authenticateToken, getIncome);
 router.get('/expense', authenticateToken, getExpense);
-router.delete('/:transactionId', authenticateToken, deleteTransaction);
+// router.delete('/:transactionId', authenticateToken, deleteTransaction);
 router.get('/income-categories', authenticateToken, getIncomesCat);
 router.get('/expense-categories', authenticateToken, getExpenseCat);
 router.get('/period-data', authenticateToken, getPeriodDataTransactions);
