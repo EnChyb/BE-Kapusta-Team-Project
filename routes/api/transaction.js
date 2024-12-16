@@ -85,7 +85,7 @@ router.get('/user-transactions', authenticateToken, getUserTransactions);
  *       500:
  *         description: Błąd serwera
  */
-router.post('/', authenticateToken, addTransaction);
+// router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
