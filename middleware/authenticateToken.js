@@ -1,23 +1,23 @@
-import jwt from 'jsonwebtoken';
+import passport from "./passportConfig.js";
 
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Access denied. No token provided.' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; 
-    next(); 
-  } catch (err) {
-    if (err.name === 'TokenExpiredError') {
-      return res.status(403).json({ error: 'Token expired. Please log in again.' });
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ error: "Internal Server Error" });
     }
-    return res.status(403).json({ error: 'Invalid token. Authentication failed.' });
-  }
+
+    if (!user) {
+      if (info?.name === "TokenExpiredError") {
+        return res
+          .status(403)
+          .json({ error: "Token expired. Please log in again." });
+      }
+      return res.status(401).json({ error: "Unauthorized. Invalid token." });
+    }
+
+    req.user = user;
+    next();
+  })(req, res, next);
 };
 
 export default authenticateToken;
