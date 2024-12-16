@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const addExpense = async (req, res) => {
   try {
-    const { description, category, amount } = req.body;
+    const { description, category, amount, date } = req.body;
     const userId = req.user._id;
 
     const validCategories = [
@@ -43,13 +43,18 @@ const addExpense = async (req, res) => {
       });
     }
 
-    const currentDate = new Date().toISOString();
+    if (!date || isNaN(Date.parse(date))) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Invalid or missing date',
+      });
+    }
+
     const newExpense = new Transaction({
       description,
       category,
       amount,
       type: 'expense',
-      date: currentDate,
+      date: new Date(date).toISOString(), 
       userId,
     });
     await newExpense.save();
