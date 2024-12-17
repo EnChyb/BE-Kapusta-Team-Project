@@ -29,18 +29,18 @@ const refreshUserToken = async (req, res, next) => {
         .json({ message: "Invalid or expired refresh token" });
     }
 
-    const accessToken = jwt.sign(
-      { userId: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-    console.log("Generated Access Token:", accessToken);
-    const newRefreshToken = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_REFRESH_SECRET,
-      { expiresIn: "7d" }
-    );
+    const payload = { userId: user._id, email: user.email, sid: decoded.sid };
+
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || "1h"
+    });
+
+    const newRefreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
+      expiresIn: "7d"
+    });
+
     console.log("Generated Refresh Token:", newRefreshToken);
+
     await updateUser(user._id, { refreshToken: newRefreshToken });
 
     return res.status(StatusCodes.OK).json({
