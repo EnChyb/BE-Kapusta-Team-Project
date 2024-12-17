@@ -4,7 +4,8 @@ import { StatusCodes } from 'http-status-codes';
 
 const addIncome = async (req, res) => {
   try {
-    const { userId, description, category, amount, date } = req.body;
+    const { description, category, amount, date } = req.body;
+    const userId = req.user._id;
 
     if (!userId || !description || !category || !amount || !date) {
       return res.status(StatusCodes.BAD_REQUEST).json({
