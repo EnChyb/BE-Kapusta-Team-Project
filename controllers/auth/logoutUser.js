@@ -4,16 +4,16 @@ import { StatusCodes } from "http-status-codes";
 
 const logoutUser = async (req, res, next) => {
   try {
-    const { userId } = req.user;
+    const { _id } = req.user;
 
-    const user = await fetchUser({ _id: userId });
+    const user = await fetchUser({ _id });
     if (!user) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "User not found" });
     }
 
-    await updateUser(user._id, { refreshToken: null });
+    await updateUser(_id, { refreshToken: null, sid: null });
 
     return res
       .status(StatusCodes.OK)
