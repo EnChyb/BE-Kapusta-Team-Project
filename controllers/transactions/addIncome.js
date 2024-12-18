@@ -6,7 +6,7 @@ const addIncome = async (req, res) => {
   try {
     const { description, category, amount, date } = req.body;
     const userId = req.user._id;
-
+  
     if (!userId || !description || !category || !amount || !date) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'User ID, description, category, amount, and date are required',
@@ -30,14 +30,18 @@ const addIncome = async (req, res) => {
       category,
       amount,
       type: 'income',
-      date: new Date(date).toISOString(), 
+      date: new Date(date).toISOString(),
       userId,
     });
 
     await newIncome.save();
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { $inc: { allIncome: amount } },
+      {
+        $inc: { allIncome: amount }, 
+        $push: { transactions: newIncome._id }, 
+      },
       { new: true }
     );
 
@@ -53,9 +57,10 @@ const addIncome = async (req, res) => {
     });
   } catch (error) {
     console.error('Error adding income:', error.message);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: 'Error adding income', error: error.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: 'Error adding income',
+      error: error.message,
+    });
   }
 };
 
