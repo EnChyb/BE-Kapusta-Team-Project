@@ -21,9 +21,15 @@ const transactionSchema = new Schema(
         'Sports, Hobbies',
         'Education',
         'Other',
-        'Income',
+        'Salary',
+        'Bonus',
       ],
       required: [true, 'Set category of transaction'],
+    },
+    type: {
+      type: String,
+      enum: ['income', 'expense'],
+      required: true,
     },
     amount: {
       type: Number,
