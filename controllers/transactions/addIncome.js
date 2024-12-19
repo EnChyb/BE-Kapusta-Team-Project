@@ -34,7 +34,8 @@ const addIncome = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
-        $inc: { allIncome: amount }
+        $inc: { allIncome: amount },
+        $push: { transactions: newIncome._id },
       },
       { new: true }
     );
