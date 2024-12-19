@@ -7,19 +7,14 @@ const addIncome = async (req, res) => {
     const { description, category, amount, date } = req.body;
     const userId = req.user._id;
   
-    if (!userId || !description || !category || !amount || !date) {
+    const validIncomeCategories = ["Salary", "Bonus"];
+    if (!validIncomeCategories.includes(category)) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'User ID, description, category, amount, and date are required',
       });
     }
 
-    if (category !== 'Income') {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Invalid category for income',
-      });
-    }
-
-    if (typeof amount !== 'number' || amount <= 0) {
+    if (!amount || typeof amount !== "number" || amount <= 0) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Amount must be a positive number',
       });
@@ -39,8 +34,7 @@ const addIncome = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
-        $inc: { allIncome: amount }, 
-        $push: { transactions: newIncome._id }, 
+        $inc: { allIncome: amount }
       },
       { new: true }
     );
