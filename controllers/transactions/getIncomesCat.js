@@ -5,7 +5,7 @@ const getIncomesCat = async (req, res, next) => {
 	try {
 		const categories = await Transaction.distinct("category", {
 			userId: req.user._id,
-			type: "Income",
+			type: "income",
 		});
 
 		if (!categories || categories.length === 0) {
