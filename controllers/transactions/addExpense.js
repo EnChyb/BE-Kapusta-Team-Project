@@ -63,7 +63,7 @@ const addExpense = async (req, res) => {
       userId,
       {
         $push: { transactions: newExpense._id },
-        $inc: { allExpense: amount },
+        $inc: { allExpense: amount , balance: -amount},
       },
       { new: true }
     );
