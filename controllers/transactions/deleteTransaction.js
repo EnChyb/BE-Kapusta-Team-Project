@@ -13,11 +13,14 @@ const deleteTransaction = async (req, res, next) => {
       return res.status(StatusCodes.NOT_FOUND).json({ message: 'Transaction not found' }); 
     }
 
-    await User.updateOne({ _id: transaction.userId }, { $pull: { transactions: transactionId } });
-    
-    const user = await User.findById(transaction.userId);
+    const user = await User.findByIdAndUpdate(
+      transaction.userId,
+      { $pull: { transactions: transactionId } },
+      { new: true }
+    );
+
     if (user) {
-      if (transaction.category === 'Income') {
+      if (transaction.type === 'income') {
         user.allIncome -= transaction.amount;
       } else {
         user.allExpense -= transaction.amount;
