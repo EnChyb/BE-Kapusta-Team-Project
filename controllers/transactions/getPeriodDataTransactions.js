@@ -31,7 +31,7 @@ const getPeriodDataTransactions = async (req, res, next) => {
 		};
 
 		transactions.forEach((transaction) => {
-			const { category, amount, type } = transaction;
+			const { category, amount, description, type } = transaction;
 			const target =
 				type === "income" ? summary.incomes : summary.expenses;
 
@@ -41,6 +41,7 @@ const getPeriodDataTransactions = async (req, res, next) => {
 
 			target.incomesData[category].total += amount;
 			target.total += amount;
+			target.incomesData[category][description] = (target.incomesData[category][description] || 0) + amount;
 		});
 
 		return res.status(StatusCodes.OK).json(summary);
