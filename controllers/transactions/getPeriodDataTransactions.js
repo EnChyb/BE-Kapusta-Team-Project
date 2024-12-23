@@ -15,7 +15,10 @@ const getPeriodDataTransactions = async (req, res, next) => {
 		const startDate = new Date(`${year}-${month}-01`);
 		const endDate = new Date(`${year}-${month}-31`);
 
+		const userId = req.user._id;
+
 		const transactions = await Transaction.find({
+			userId,
 			date: { $gte: startDate, $lte: endDate },
 		});
 
