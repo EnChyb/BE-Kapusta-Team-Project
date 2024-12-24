@@ -10,11 +10,19 @@ import authRouter from "./routes/api/auth.js";
 import transactionRouter from "./routes/api/transaction.js";
 import userRouter from "./routes/api/user.js";
 
-import authenticateToken from './middleware/authenticateToken.js';
+import authenticateToken from "./middleware/authenticateToken.js";
+
+import "./middleware/googlePassportConfig.js";
 
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err.stack || err.message); // Log szczegółowy
+  res.status(err.status || 500).json({
+    message: err.message || "Internal Server Error"
+  });
+});
 
 app.use(morgan(formatsLogger));
 
@@ -32,7 +40,6 @@ app.use(morgan(formatsLogger));
 // app.use(cors(corsOptions[environment]));
 app.use(cors());
 app.use(express.json());
-
 app.use(passport.initialize());
 
 // API DOCUMENTATION

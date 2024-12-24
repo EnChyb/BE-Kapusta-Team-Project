@@ -26,7 +26,7 @@ const loginUser = async (req, res, next) => {
       expiresIn: "7d"
     });
 
-    await updateUser(user._id, { refreshToken, sid });
+    await updateUser(user._id, { accessToken, refreshToken, sid });
 
     return res.status(StatusCodes.OK).json({
       accessToken,
