@@ -4,7 +4,7 @@ import cors from "cors";
 import passport from "./middleware/passportConfig.js";
 
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec, swaggerUi } from "./utils/swaggerConfig.js";
+import { swaggerSpec } from "./utils/swaggerConfig.js";
 
 import authRouter from "./routes/api/auth.js";
 import transactionRouter from "./routes/api/transaction.js";
