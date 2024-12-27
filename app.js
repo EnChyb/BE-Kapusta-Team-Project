@@ -29,7 +29,7 @@ app.use(morgan(formatsLogger));
 // // CORS configuration - only development and production of frontend can fetch data
 const corsOptions = {
   development: {
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true
   },
