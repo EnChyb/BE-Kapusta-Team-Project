@@ -7,11 +7,11 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback"
+      callbackURL:
+        process.env.BACKEND_API || "http://localhost:3000/auth/google/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log("Google Profile:", profile);
         const existingUser = await User.findOne({ googleId: profile.id });
 
         if (existingUser) {
@@ -33,7 +33,7 @@ passport.use(
         await newUser.save();
         done(null, newUser);
       } catch (err) {
-        console.error("Error in Passport strategy:", err.message); // Logowanie błędów
+        console.error("Error in Passport strategy:", err.message);
         done(err, null);
       }
     }
