@@ -1,6 +1,6 @@
 
 import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
+//import swaggerUi from 'swagger-ui-express';
 
 
 
@@ -18,5 +18,5 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-export { swaggerSpec, swaggerUi };
+export default swaggerSpec;
 
