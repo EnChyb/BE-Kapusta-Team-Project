@@ -26,10 +26,13 @@ app.use((err, req, res, next) => {
 
 app.use(morgan(formatsLogger));
 
+// Logowanie zmiennej środowiskowej 
+console.log("Environment:", process.env.NODE_ENV);
+
 // // CORS configuration - only development and production of frontend can fetch data
 const corsOptions = {
   development: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://localhost:3000"],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true
   },
