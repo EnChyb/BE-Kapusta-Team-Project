@@ -18,18 +18,28 @@ const registerUser = async (req, res, next) => {
     await newUser.setPassword(password);
     await newUser.save();
 
-    const accessToken = jwt.sign(
-      { userId: newUser._id, email: newUser.email },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
-    );
+    const payload = { userId: newUser._id, email: newUser.email };
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || "1h"
+    });
+    const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
+      expiresIn: "7d"
+    });
+
+    newUser.refreshToken = refreshToken;
+    await newUser.save();
 
     return res.status(StatusCodes.CREATED).json({
       message: "User registered successfully",
       accessToken,
+      refreshToken,
       userData: {
         id: newUser._id,
-        email: newUser.email
+        email: newUser.email,
+        balance: newUser.balance,
+        allIncome: newUser.allIncome,
+        allExpense: newUser.allExpense,
+        transactions: newUser.transactions
       }
     });
   } catch (err) {
