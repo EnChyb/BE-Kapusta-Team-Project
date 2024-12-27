@@ -29,13 +29,22 @@ app.use(morgan(formatsLogger));
 // // CORS configuration - only development and production of frontend can fetch data
 const corsOptions = {
   development: {
-    origin: "http://localhost:3000"
+    origin: "http://localhost:5174",
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true
   },
   production: {
-    origin: "https://fe-kapusta-team-project.vercel.app/"
+    origin: "https://fe-kapusta-team-project.vercel.app",
+    credentials: true
   }
 };
-const environment = process.env.NODE_ENV || "development"; // check NODE_ENV in scripts
+
+const environment = process.env.NODE_ENV || "development";
+if (!corsOptions[environment]) {
+  throw new Error(
+    `Invalid NODE_ENV: ${environment}. Please set it to "development" or "production".`
+  );
+}
 
 app.use(cors(corsOptions[environment]));
 //app.use(cors());
