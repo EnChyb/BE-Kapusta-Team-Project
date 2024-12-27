@@ -38,7 +38,7 @@ const corsOptions = {
 const environment = process.env.NODE_ENV || "development"; // check NODE_ENV in scripts
 
 app.use(cors(corsOptions[environment]));
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
