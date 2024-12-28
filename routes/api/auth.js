@@ -21,9 +21,7 @@ router.get(
     console.log("Attempting to authenticate with Google");
     next();
   },
-  passport.authenticate("google", {
-    scope: ["profile", "email"]
-  })
+  passport.authenticate("google")
 );
 
 router.get(
