@@ -10,12 +10,13 @@ const loginUser = async (req, res, next) => {
 
     const user = await fetchUser({ email });
     if (!user || !(await user.validatePassword(password))) {
-      return res
-        .status(StatusCodes.FORBIDDEN)
-        .json({ message: "Email doesn't exist / Password is wrong" });
+      return res.status(StatusCodes.FORBIDDEN).json({
+        message: "Email doesn't exist or password is incorrect"
+      });
     }
 
     const sid = uuidv4();
+
     const payload = { userId: user._id, email: user.email, sid };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -26,20 +27,24 @@ const loginUser = async (req, res, next) => {
       expiresIn: "7d"
     });
 
-    await updateUser(user._id, { accessToken, refreshToken, sid });
+    await updateUser(user._id, { refreshToken, sid });
 
     return res.status(StatusCodes.OK).json({
+      message: "Logged in successfully",
       accessToken,
       refreshToken,
       sid,
       userData: {
+        id: user._id,
         email: user.email,
         balance: user.balance,
-        id: user._id,
+        allIncome: user.allIncome,
+        allExpense: user.allExpense,
         transactions: user.transactions || []
       }
     });
   } catch (err) {
+    console.error("Error during login:", err.message);
     next(err);
   }
 };
