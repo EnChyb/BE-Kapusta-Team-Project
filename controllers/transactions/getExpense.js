@@ -11,10 +11,8 @@ const getExpense = async (req, res) => {
     }).select('description amount date category _id'); 
 
     if (!expenses || expenses.length === 0) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: 'No expenses found for this user' });
-    }
+      return res.status(StatusCodes.OK).json({ expenses: [] });
+   }
 
     return res.status(StatusCodes.OK).json({ expenses });
   } catch (error) {
