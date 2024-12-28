@@ -11,10 +11,8 @@ const getIncome = async (req, res) => {
     }).select('description amount date category _id'); 
 
     if (!incomes || incomes.length === 0) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: 'No incomes found for this user' });
-    }
+      return res.status(StatusCodes.OK).json({ incomes: [] });
+   }
 
     return res.status(StatusCodes.OK).json({ incomes });
   } catch (error) {
