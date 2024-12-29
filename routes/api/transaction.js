@@ -66,10 +66,230 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
+ * /api/transactions/expense:
+ *   post:
+ *     summary: Dodaj nowy wydatek
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       201:
+ *         description: Wydatek dodany pomyślnie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
+ *       400:
+ *         description: Invalid input
+ *       500:
+ *         description: Błąd serwera
+ */
+
+/**
+ * @swagger
+ * /api/transactions/income:
+ *   post:
+ *     summary: Dodaj nowy przychód
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       201:
+ *         description: Przychód dodany pomyślnie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
+ *       400:
+ *         description: Invalid input
+ *       500:
+ *         description: Błąd serwera
+ */
+
+/**
+ * @swagger
+ * /api/transactions/income:
+ *   get:
+ *     summary: Pobierz przychody użytkownika
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista przychodów użytkownika
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Brak przychodów
+ */
+
+/**
+ * @swagger
+ * /api/transactions/expense:
+ *   get:
+ *     summary: Pobierz wydatki użytkownika
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista wydatków użytkownika
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Brak wydatków
+ */
+
+/**
+ * @swagger
+ * /api/transactions/{transactionId}:
+ *   delete:
+ *     summary: Usuń transakcję
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: transactionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID transakcji
+ *     responses:
+ *       200:
+ *         description: Transakcja usunięta pomyślnie
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Transakcja nie znaleziona
+ *       500:
+ *         description: Błąd serwera
+ */
+
+/**
+ * @swagger
+ * /api/transactions/income-categories:
+ *   get:
+ *     summary: Pobierz kategorie przychodów
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista kategorii przychodów
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Brak kategorii
+ */
+
+/**
+ * @swagger
+ * /api/transactions/expense-categories:
+ *   get:
+ *     summary: Pobierz kategorie wydatków
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista kategorii wydatków
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Brak kategorii
+ */
+
+/**
+ * @swagger
+ * /api/transactions/period-data:
+ *   get:
+ *     summary: Pobierz dane transakcji za okres
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Dane transakcji za okres
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Brak danych
+ */
+
+/**
+ * @swagger
+ * /api/transactions/user-transactions:
+ *   get:
+ *     summary: Pobierz transakcje użytkownika
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista transakcji użytkownika
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Brak transakcji
+ */
+
+/**
+ * @swagger
  * /api/transactions:
  *   post:
  *     summary: Dodaj nową transakcję
  *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -85,28 +305,6 @@ router.post('/', authenticateToken, addTransaction);
  *               $ref: '#/components/schemas/Transaction'
  *       400:
  *         description: Invalid input
- *       500:
- *         description: Błąd serwera
- */
-
-/**
- * @swagger
- * /api/transactions/{transactionId}:
- *   delete:
- *     summary: Usuń transakcję
- *     tags: [Transactions]
- *     parameters:
- *       - in: path
- *         name: transactionId
- *         required: true
- *         schema:
- *           type: string
- *         description: ID transakcji
- *     responses:
- *       200:
- *         description: Transakcja usunięta pomyślnie
- *       404:
- *         description: Transakcja nie znaleziona
  *       500:
  *         description: Błąd serwera
  */
