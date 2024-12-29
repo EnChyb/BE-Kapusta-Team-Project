@@ -2,17 +2,23 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import passport from "./middleware/passportConfig.js";
+
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swaggerConfig.js";
+
 import authRouter from "./routes/api/auth.js";
 import transactionRouter from "./routes/api/transaction.js";
 import userRouter from "./routes/api/user.js";
+
 import authenticateToken from "./middleware/authenticateToken.js";
+
 import "./middleware/googlePassportConfig.js";
 
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
+app.use(morgan(formatsLogger));
 
 // Logowanie zmiennej środowiskowej
 console.log("Environment:", process.env.NODE_ENV);
@@ -55,7 +61,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(passport.initialize());
-app.use(morgan(formatsLogger));
 
 // API DOCUMENTATION
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
