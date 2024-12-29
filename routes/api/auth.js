@@ -116,7 +116,7 @@ router.post("/refresh", validateRequest(refreshTokenSchema), refreshUserToken);
 
 /**
  * @swagger
- * /register:
+ * /auth/register:
  *   post:
  *     summary: Create a new user
  *     tags: [Auth]
@@ -135,7 +135,7 @@ router.post("/refresh", validateRequest(refreshTokenSchema), refreshUserToken);
 
 /**
  * @swagger
- * /login:
+ * /auth/login:
  *   post:
  *     summary: Login user
  *     tags: [Auth]
@@ -156,7 +156,7 @@ router.post("/refresh", validateRequest(refreshTokenSchema), refreshUserToken);
 
 /**
  * @swagger
- * /logout:
+ * /auth/logout:
  *   post:
  *     summary: Log out user
  *     tags: [Auth]
@@ -171,7 +171,7 @@ router.post("/refresh", validateRequest(refreshTokenSchema), refreshUserToken);
 
 /**
  * @swagger
- * /refresh:
+ * /auth/refresh:
  *   post:
  *     summary: Refresh user token
  *     tags: [Auth]
