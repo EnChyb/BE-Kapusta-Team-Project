@@ -17,12 +17,6 @@ import "./middleware/googlePassportConfig.js";
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
-app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err.stack || err.message); // Log szczegółowy
-  res.status(err.status || 500).json({
-    message: err.message || "Internal Server Error"
-  });
-});
 
 app.use(morgan(formatsLogger));
 
