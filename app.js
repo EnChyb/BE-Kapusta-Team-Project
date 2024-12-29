@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import passport from "./middleware/passportConfig.js";
-
+import redisClient from './utils/redisClient.js';
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swaggerConfig.js";
 
@@ -51,18 +51,17 @@ console.log("Environment:", process.env.NODE_ENV);
 //     `Invalid NODE_ENV: ${environment}. Please set it to "development" or "production".`
 //   );
 // }
-// app.use(cors());
 
-const corsOptions = {
-    origin: ["https://fe-kapusta-team-project.vercel.app", "http://localhost:5173", "http://localhost:3000"],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-};
-
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions[environment]));
+app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
+
+// Middleware for Redis
+app.use((req, res, next) => {
+  req.redisClient = redisClient;
+  next();
+});
 
 // API DOCUMENTATION
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

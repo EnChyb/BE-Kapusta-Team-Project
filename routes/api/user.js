@@ -47,7 +47,7 @@ router.get('/', authenticateToken, getUserInfo);
 
 /**
  * @swagger
- * /users/balance:
+ * /user/balance:
  *   patch:
  *     summary: Update user's balance
  *     tags: [User]
@@ -70,7 +70,7 @@ router.get('/', authenticateToken, getUserInfo);
 
 /**
  * @swagger
- * /users/:
+ * /user/:
  *   get:
  *     summary: Get information about the current user
  *     tags: [User]
