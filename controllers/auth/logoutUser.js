@@ -13,7 +13,11 @@ const logoutUser = async (req, res, next) => {
         .json({ message: "User not found" });
     }
 
-    await updateUser(_id, { refreshToken: null, sid: null });
+    await updateUser(_id, {
+      accessToken: null,
+      refreshToken: null,
+      sid: null
+    });
 
     return res
       .status(StatusCodes.OK)
