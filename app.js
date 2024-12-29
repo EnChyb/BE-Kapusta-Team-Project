@@ -30,30 +30,30 @@ app.use(morgan(formatsLogger));
 console.log("Environment:", process.env.NODE_ENV);
 
 // CORS configuration - only development and production of frontend can fetch data
-const corsOptions = {
-  development: {
-    origin: ["http://localhost:5173", "http://localhost:3000"],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  },
-  production: {
-    origin: "https://fe-kapusta-team-project.vercel.app",
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  }
-};
+// const corsOptions = {
+//   development: {
+//     origin: ["http://localhost:5173", "http://localhost:3000"],
+//     methods: ["GET", "POST", "PATCH", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   },
+//   production: {
+//     origin: "https://fe-kapusta-team-project.vercel.app",
+//     methods: ["GET", "POST", "PATCH", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   }
+// };
 
-const environment = process.env.NODE_ENV || "development";
-if (!corsOptions[environment]) {
-  throw new Error(
-    `Invalid NODE_ENV: ${environment}. Please set it to "development" or "production".`
-  );
-}
+// const environment = process.env.NODE_ENV || "development";
+// if (!corsOptions[environment]) {
+//   throw new Error(
+//     `Invalid NODE_ENV: ${environment}. Please set it to "development" or "production".`
+//   );
+// }
 
-app.use(cors(corsOptions[environment]));
-// app.use(cors());
+// app.use(cors(corsOptions[environment]));
+app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
