@@ -29,6 +29,8 @@ const registerUser = async (req, res, next) => {
       expiresIn: "7d"
     });
 
+    newUser.sid = sid;
+    newUser.accessToken = accessToken;
     newUser.refreshToken = refreshToken;
     await newUser.save();
 
