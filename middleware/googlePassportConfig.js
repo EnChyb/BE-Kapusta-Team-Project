@@ -9,7 +9,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.NODE_ENV === "production"
-          ? "https://your-production-url.com/auth/google/callback"
+          ? "https://fe-kapusta-team-project.vercel.app/auth/google/callback"
           : "http://localhost:3000/auth/google/callback",
       scope: ["profile", "email", "https://mail.google.com/"]
     },
