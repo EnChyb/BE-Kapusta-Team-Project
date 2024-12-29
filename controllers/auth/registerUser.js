@@ -31,7 +31,6 @@ const registerUser = async (req, res, next) => {
 
     newUser.refreshToken = refreshToken;
     await newUser.save();
-    await updateUser(user._id, { refreshToken, sid });
 
     return res.status(StatusCodes.CREATED).json({
       message: "User registered successfully",
