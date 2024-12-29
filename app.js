@@ -26,7 +26,7 @@ app.use((err, req, res, next) => {
 
 app.use(morgan(formatsLogger));
 
-// Logowanie zmiennej środowiskowej 
+// Logowanie zmiennej środowiskowej
 console.log("Environment:", process.env.NODE_ENV);
 
 // CORS configuration - only development and production of frontend can fetch data
@@ -54,10 +54,14 @@ console.log("Environment:", process.env.NODE_ENV);
 // app.use(cors());
 
 const corsOptions = {
-    origin: ["https://fe-kapusta-team-project.vercel.app", "http://localhost:5173", "http://localhost:3000"],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
+  origin: [
+    "https://fe-kapusta-team-project.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "Location"],
+  credentials: true
 };
 
 app.use(cors(corsOptions));
