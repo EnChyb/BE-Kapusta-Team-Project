@@ -2,6 +2,7 @@ import fetchUser from "../../services/findUser.js";
 import User from "../../models/userSchema.js";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
+import { v4 as uuidv4 } from "uuid";
 
 const registerUser = async (req, res, next) => {
   try {
@@ -18,6 +19,8 @@ const registerUser = async (req, res, next) => {
     await newUser.setPassword(password);
     await newUser.save();
 
+    const sid = uuidv4();
+
     const payload = { userId: newUser._id, email: newUser.email };
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN || "1h"
@@ -28,11 +31,13 @@ const registerUser = async (req, res, next) => {
 
     newUser.refreshToken = refreshToken;
     await newUser.save();
+    await updateUser(user._id, { refreshToken, sid });
 
     return res.status(StatusCodes.CREATED).json({
       message: "User registered successfully",
       accessToken,
       refreshToken,
+      sid,
       userData: {
         id: newUser._id,
         email: newUser.email,
