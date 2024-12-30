@@ -15,17 +15,12 @@ router.get('/', authenticateToken, getUserInfo);
  *     User:
  *       type: object
  *       required:
- *         - name
  *         - email
  *         - password
  *       properties:
  *         id:
  *           type: string
  *           description: Backend-generated unique identifier.
- *         name:
- *           type: string
- *           description: Username.
- *           example: "Adrian Cross"
  *         email:
  *           type: string
  *           description: E-mail address.
