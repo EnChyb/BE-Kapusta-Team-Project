@@ -8,7 +8,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-        process.env.BACKEND_API || "http://localhost:3000/auth/google/callback",
+        process.env.BACKEND_API || "https://fe-kapusta-team-project.vercel.app/auth/google/callback",
       scope: ["profile", "email", "https://mail.google.com/"]
     },
     async (accessToken, refreshToken, profile, done) => {
