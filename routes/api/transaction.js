@@ -43,7 +43,7 @@ router.post('/', authenticateToken, addTransaction);
  *         description:
  *           type: string
  *           description: Description of the transaction
- *           example: "Zakup artykułów spożywczych"
+ *           example: "Purchase of groceries"
  *         category:
  *           type: string
  *           description: Category of the transaction
@@ -66,9 +66,9 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /api/transactions/expense:
+ * /transactions/expense:
  *   post:
- *     summary: Dodaj nowy wydatek
+ *     summary: Add a new expense
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -80,7 +80,7 @@ router.post('/', authenticateToken, addTransaction);
  *             $ref: '#/components/schemas/Transaction'
  *     responses:
  *       201:
- *         description: Wydatek dodany pomyślnie
+ *         description: Expense added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -88,14 +88,14 @@ router.post('/', authenticateToken, addTransaction);
  *       400:
  *         description: Invalid input
  *       500:
- *         description: Błąd serwera
+ *         description: Server error
  */
 
 /**
  * @swagger
- * /api/transactions/income:
+ * /transactions/income:
  *   post:
- *     summary: Dodaj nowy przychód
+ *     summary: Add a new income
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -107,7 +107,7 @@ router.post('/', authenticateToken, addTransaction);
  *             $ref: '#/components/schemas/Transaction'
  *     responses:
  *       201:
- *         description: Przychód dodany pomyślnie
+ *         description: Income added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -115,20 +115,20 @@ router.post('/', authenticateToken, addTransaction);
  *       400:
  *         description: Invalid input
  *       500:
- *         description: Błąd serwera
+ *         description: Server error
  */
 
 /**
  * @swagger
- * /api/transactions/income:
+ * /transactions/income:
  *   get:
- *     summary: Pobierz przychody użytkownika
+ *     summary: Get user's incomes
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista przychodów użytkownika
+ *         description: List of user's incomes
  *         content:
  *           application/json:
  *             schema:
@@ -138,20 +138,20 @@ router.post('/', authenticateToken, addTransaction);
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Brak przychodów
+ *         description: No incomes found
  */
 
 /**
  * @swagger
- * /api/transactions/expense:
+ * /transactions/expense:
  *   get:
- *     summary: Pobierz wydatki użytkownika
+ *     summary: Get user's expenses
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista wydatków użytkownika
+ *         description: List of user's expenses
  *         content:
  *           application/json:
  *             schema:
@@ -161,14 +161,14 @@ router.post('/', authenticateToken, addTransaction);
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Brak wydatków
+ *         description: No expenses found
  */
 
 /**
  * @swagger
- * /api/transactions/{transactionId}:
+ * /transactions/{transactionId}:
  *   delete:
- *     summary: Usuń transakcję
+ *     summary: Delete a transaction
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -181,26 +181,26 @@ router.post('/', authenticateToken, addTransaction);
  *         description: ID transakcji
  *     responses:
  *       200:
- *         description: Transakcja usunięta pomyślnie
+ *         description: Transaction deleted successfully
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Transakcja nie znaleziona
+ *         description: Transaction not found
  *       500:
- *         description: Błąd serwera
+ *         description: Server error
  */
 
 /**
  * @swagger
- * /api/transactions/income-categories:
+ * /transactions/income-categories:
  *   get:
- *     summary: Pobierz kategorie przychodów
+ *     summary: Get income categories
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista kategorii przychodów
+ *         description: List of income categories
  *         content:
  *           application/json:
  *             schema:
@@ -210,20 +210,20 @@ router.post('/', authenticateToken, addTransaction);
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Brak kategorii
+ *         description: No categories found
  */
 
 /**
  * @swagger
- * /api/transactions/expense-categories:
+ * /transactions/expense-categories:
  *   get:
- *     summary: Pobierz kategorie wydatków
+ *     summary: Get expense categories
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista kategorii wydatków
+ *         description: List of expense categories
  *         content:
  *           application/json:
  *             schema:
@@ -233,20 +233,20 @@ router.post('/', authenticateToken, addTransaction);
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Brak kategorii
+ *         description: No categories found
  */
 
 /**
  * @swagger
- * /api/transactions/period-data:
+ * /transactions/period-data:
  *   get:
- *     summary: Pobierz dane transakcji za okres
+ *     summary: Get period transaction data
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Dane transakcji za okres
+ *         description: Period transaction data
  *         content:
  *           application/json:
  *             schema:
@@ -256,20 +256,20 @@ router.post('/', authenticateToken, addTransaction);
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Brak danych
+ *         description: No data found
  */
 
 /**
  * @swagger
- * /api/transactions/user-transactions:
+ * /transactions/user-transactions:
  *   get:
- *     summary: Pobierz transakcje użytkownika
+ *     summary: Get user transactions
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista transakcji użytkownika
+ *         description: List of user transactions
  *         content:
  *           application/json:
  *             schema:
@@ -279,14 +279,14 @@ router.post('/', authenticateToken, addTransaction);
  *       401:
  *         description: Unauthorized
  *       404:
- *         description: Brak transakcji
+ *         description: No transactions found
  */
 
 /**
  * @swagger
- * /api/transactions:
+ * /transactions:
  *   post:
- *     summary: Dodaj nową transakcję
+ *     summary: Add a new transaction
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -298,7 +298,7 @@ router.post('/', authenticateToken, addTransaction);
  *             $ref: '#/components/schemas/Transaction'
  *     responses:
  *       201:
- *         description: Transakcja dodana pomyślnie
+ *         description: Transaction added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -306,7 +306,7 @@ router.post('/', authenticateToken, addTransaction);
  *       400:
  *         description: Invalid input
  *       500:
- *         description: Błąd serwera
+ *         description: Server error
  */
 
 
