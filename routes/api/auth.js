@@ -70,17 +70,12 @@ router.post("/refresh", validateRequest(refreshTokenSchema), refreshUserToken);
  *     User:
  *       type: object
  *       required:
- *         - name
  *         - email
  *         - password
  *       properties:
  *         id:
  *           type: string
  *           description: Backend-generated unique identifier.
- *         name:
- *           type: string
- *           description: Username.
- *           example: "Adrian Cross"
  *         email:
  *           type: string
  *           description: E-mail address.
@@ -106,12 +101,14 @@ router.post("/refresh", validateRequest(refreshTokenSchema), refreshUserToken);
  *     RefreshTokenRequest:
  *       type: object
  *       required:
- *         - refreshToken
+ *         - sid
  *       properties:
  *         refreshToken:
  *           type: string
- *           description: Refresh token.
- *           example: "some-refresh-token"
+ *           description: Session's ('sid' field after authentication)
+
+
+ *           example: "507f1f77bcf86cd799439011"
  */
 
 /**

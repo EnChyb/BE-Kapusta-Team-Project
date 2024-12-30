@@ -66,7 +66,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/expense:
+ * /transaction/expense:
  *   post:
  *     summary: Add a new expense
  *     tags: [Transactions]
@@ -93,7 +93,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/income:
+ * /transaction/income:
  *   post:
  *     summary: Add a new income
  *     tags: [Transactions]
@@ -120,7 +120,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/income:
+ * /transaction/income:
  *   get:
  *     summary: Get user's incomes
  *     tags: [Transactions]
@@ -143,7 +143,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/expense:
+ * /transaction/expense:
  *   get:
  *     summary: Get user's expenses
  *     tags: [Transactions]
@@ -166,7 +166,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/{transactionId}:
+ * /transaction/{transactionId}:
  *   delete:
  *     summary: Delete a transaction
  *     tags: [Transactions]
@@ -192,7 +192,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/income-categories:
+ * /transaction/income-categories:
  *   get:
  *     summary: Get income categories
  *     tags: [Transactions]
@@ -215,7 +215,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/expense-categories:
+ * /transaction/expense-categories:
  *   get:
  *     summary: Get expense categories
  *     tags: [Transactions]
@@ -238,7 +238,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/period-data:
+ * /transaction/period-data:
  *   get:
  *     summary: Get period transaction data
  *     tags: [Transactions]
@@ -261,7 +261,7 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /transactions/user-transactions:
+ * /transaction/user-transactions:
  *   get:
  *     summary: Get user transactions
  *     tags: [Transactions]
