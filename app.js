@@ -17,28 +17,25 @@ import "./middleware/googlePassportConfig.js";
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
-app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err.stack || err.message); // Log szczegółowy
-  res.status(err.status || 500).json({
-    message: err.message || "Internal Server Error"
-  });
-});
 
 app.use(morgan(formatsLogger));
 
-// Logowanie zmiennej środowiskowej 
+// Logowanie zmiennej środowiskowej
 console.log("Environment:", process.env.NODE_ENV);
 
-// // CORS configuration - only development and production of frontend can fetch data
+// CORS configuration - only development and production of frontend can fetch data
 // const corsOptions = {
 //   development: {
 //     origin: ["http://localhost:5173", "http://localhost:3000"],
 //     methods: ["GET", "POST", "PATCH", "DELETE"],
-//     credentials: true
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
 //   },
 //   production: {
 //     origin: "https://fe-kapusta-team-project.vercel.app",
-//     credentials: true
+//     methods: ["GET", "POST", "PATCH", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
 //   }
 // };
 
@@ -48,9 +45,20 @@ console.log("Environment:", process.env.NODE_ENV);
 //     `Invalid NODE_ENV: ${environment}. Please set it to "development" or "production".`
 //   );
 // }
+// app.use(cors());
 
-// app.use(cors(corsOptions[environment]));
-app.use(cors());
+const corsOptions = {
+  origin: [
+    "https://fe-kapusta-team-project.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "Location"],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(passport.initialize());
 

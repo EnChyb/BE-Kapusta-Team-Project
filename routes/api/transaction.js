@@ -43,7 +43,7 @@ router.post('/', authenticateToken, addTransaction);
  *         description:
  *           type: string
  *           description: Description of the transaction
- *           example: "Zakup artykułów spożywczych"
+ *           example: "Purchase of groceries"
  *         category:
  *           type: string
  *           description: Category of the transaction
@@ -66,10 +66,12 @@ router.post('/', authenticateToken, addTransaction);
 
 /**
  * @swagger
- * /api/transactions:
+ * /transaction/expense:
  *   post:
- *     summary: Dodaj nową transakcję
+ *     summary: Add a new expense
  *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -78,7 +80,7 @@ router.post('/', authenticateToken, addTransaction);
  *             $ref: '#/components/schemas/Transaction'
  *     responses:
  *       201:
- *         description: Transakcja dodana pomyślnie
+ *         description: Expense added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -86,15 +88,90 @@ router.post('/', authenticateToken, addTransaction);
  *       400:
  *         description: Invalid input
  *       500:
- *         description: Błąd serwera
+ *         description: Server error
  */
 
 /**
  * @swagger
- * /api/transactions/{transactionId}:
- *   delete:
- *     summary: Usuń transakcję
+ * /transaction/income:
+ *   post:
+ *     summary: Add a new income
  *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       201:
+ *         description: Income added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
+ *       400:
+ *         description: Invalid input
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /transaction/income:
+ *   get:
+ *     summary: Get user's incomes
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of user's incomes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No incomes found
+ */
+
+/**
+ * @swagger
+ * /transaction/expense:
+ *   get:
+ *     summary: Get user's expenses
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of user's expenses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No expenses found
+ */
+
+/**
+ * @swagger
+ * /transaction/{transactionId}:
+ *   delete:
+ *     summary: Delete a transaction
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: transactionId
@@ -104,11 +181,132 @@ router.post('/', authenticateToken, addTransaction);
  *         description: ID transakcji
  *     responses:
  *       200:
- *         description: Transakcja usunięta pomyślnie
+ *         description: Transaction deleted successfully
+ *       401:
+ *         description: Unauthorized
  *       404:
- *         description: Transakcja nie znaleziona
+ *         description: Transaction not found
  *       500:
- *         description: Błąd serwera
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /transaction/income-categories:
+ *   get:
+ *     summary: Get income categories
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of income categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No categories found
+ */
+
+/**
+ * @swagger
+ * /transaction/expense-categories:
+ *   get:
+ *     summary: Get expense categories
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of expense categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No categories found
+ */
+
+/**
+ * @swagger
+ * /transaction/period-data:
+ *   get:
+ *     summary: Get period transaction data
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Period transaction data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No data found
+ */
+
+/**
+ * @swagger
+ * /transaction/user-transactions:
+ *   get:
+ *     summary: Get user transactions
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of user transactions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transaction'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No transactions found
+ */
+
+/**
+ * @swagger
+ * /transactions:
+ *   post:
+ *     summary: Add a new transaction
+ *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       201:
+ *         description: Transaction added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
+ *       400:
+ *         description: Invalid input
+ *       500:
+ *         description: Server error
  */
 
 
